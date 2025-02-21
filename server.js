@@ -54,7 +54,7 @@ app.post("/submit", async (req, res) => {
     7. Power Supply
     8. CPU Cooler (or stock CPU cooler if applicable)
     
-    Please provide a small explanation at the end of the list.`;
+    Only provide a small explanation at the end of the list.`;
 
     try {
         const result = await geminiModel.generateContent(prompt);
