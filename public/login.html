@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Login & Signup</title>
+        <link rel="stylesheet" href="login.css" />
+        <script
+            src="https://accounts.google.com/gsi/client"
+            async
+            defer
+        ></script>
+        <script src="https://cdn.jsdelivr.net/npm/jwt-decode/build/jwt-decode.min.js"></script>
+    </head>
+    <body>
+        <div class="auth-container">
+            <div class="auth-box">
+                <h2 id="form-title">Login</h2>
+                <div
+                    id="g_id_onload"
+                    data-client_id="750495630078-in3i6ifq5g8tfgirmgu03gosh0gtb8cb.apps.googleusercontent.com"
+                    data-context="signin"
+                    data-ux_mode="popup"
+                    data-callback="handleCredentialResponse"
+                    data-auto_prompt="false"
+                ></div>
+                <div class="g_id_signin" data-type="standard"></div>
+            </div>
+        </div>
+
+        <script src="login.js"></script>
+    </body>
+</html>

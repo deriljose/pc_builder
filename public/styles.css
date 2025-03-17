@@ -3,11 +3,11 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: 'Arial', sans-serif;
+    font-family: "Arial", sans-serif;
 }
 
 body {
-    background-color: #f0f4f8;
+    background: linear-gradient(90deg, #020024 0%, #1b3c87 40%, #00b4db 100%);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -15,14 +15,45 @@ body {
     color: #333;
 }
 
+.sidebar {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 200px;
+    height: 100%;
+    background-color: #333;
+    padding-top: 20px;
+}
+
+.sidebar ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.sidebar ul li {
+    padding: 10px;
+    text-align: center;
+}
+
+.sidebar ul li a {
+    color: white;
+    text-decoration: none;
+    display: block;
+}
+
+.sidebar ul li a:hover {
+    background-color: #575757;
+}
+
 .container {
     background: #ffffff;
     border-radius: 12px;
     box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
     width: 90%;
-    max-width: 500px;
+    max-width: 700px;
     padding: 30px;
     text-align: center;
+    margin-left: 220px; /* Adjust for sidebar */
 }
 
 h1 {
@@ -54,7 +85,9 @@ label {
     display: block;
 }
 
-input, select, button {
+input,
+select,
+button {
     width: 100%;
     padding: 10px;
     border: 1px solid #ddd;
@@ -102,6 +135,7 @@ button:hover {
 /* Slider Styles */
 input[type="range"] {
     width: 100%;
+    appearance: none;
     -webkit-appearance: none;
     height: 5px;
     background: #ddd;
@@ -138,6 +172,82 @@ input[type="range"]::-moz-range-thumb:hover {
     background-color: #0056b3;
 }
 
+/* Make sure generated content has space and doesn't overflow */
+#recommendations {
+    padding: 20px; /* Space around the text */
+    margin: 20px 0; /* Vertical space between content */
+    word-wrap: break-word; /* Break long words */
+    overflow-wrap: break-word; /* Same for better support */
+    max-width: 100%; /* Prevent text from overflowing horizontally */
+    box-sizing: border-box; /* Ensure padding is included in width */
+    line-height: 1.6; /* Increase line spacing for readability */
+    font-size: 16px; /* Ensure font size is readable */
+    text-align: justify; /* Justify the text (optional) */
+}
+
+/* Style individual paragraphs (if the content is in paragraphs) */
+#recommendations p {
+    margin-bottom: 15px; /* Add space between paragraphs */
+}
+#recommendations pre {
+    white-space: pre-wrap; /* Ensures content wraps inside the container */
+    overflow-wrap: break-word; /* Breaks long words to avoid overflow */
+    word-wrap: break-word; /* Compatibility for older browsers */
+    max-width: 100%; /* Ensures it doesn't overflow outside the container */
+}
+
+/* Style individual sentences or generated content blocks */
+#recommendations span,
+#recommendations div {
+    display: block; /* Make spans behave like block elements */
+    margin-bottom: 10px; /* Add space between generated content elements */
+}
+
+/* Optionally handle the case for long text that might overflow */
+#recommendations {
+    white-space: normal; /* Allow wrapping */
+    text-overflow: ellipsis; /* Show "..." for overly long lines */
+}
+
+/* Card Styles */
+.card-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.card {
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+    width: 30%;
+    padding: 20px;
+    text-align: left;
+    box-sizing: border-box;
+}
+
+.card h2 {
+    font-size: 18px;
+    color: #007bff;
+    margin-bottom: 10px;
+}
+
+.card p {
+    font-size: 14px;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.card pre {
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    max-width: 100%;
+    font-size: 14px;
+    line-height: 1.6;
+}
+
 /* Mobile Compatibility */
 @media (max-width: 600px) {
     h1 {
@@ -151,5 +261,9 @@ input[type="range"]::-moz-range-thumb:hover {
     button {
         font-size: 12px;
         padding: 8px;
+    }
+
+    .card {
+        width: 100%;
     }
 }

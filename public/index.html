@@ -8,6 +8,16 @@
         <link rel="stylesheet" href="styles.css" />
     </head>
     <body>
+        <div class="sidebar">
+            <ul>
+                <li><a href="#requirements">Requirements</a></li>
+                <li><a href="recommendation.html">Recommendation</a></li>
+                <li><a href="bottleneck.html">Bottleneck Calculator</a></li>
+                <li><a href="#benchmark">Benchmark and Performance</a></li>
+                <li><a href="#game-building">Game Based Building</a></li>
+                <li><a href="#ai-assistant">AI Assistant</a></li>
+            </ul>
+        </div>
         <div class="container">
             <h1>Build Your Custom PC</h1>
             <p class="description">
@@ -51,6 +61,7 @@
                         <option value="">-- Select --</option>
                         <option value="intel">Intel</option>
                         <option value="amd">AMD</option>
+                        <option value="none">None</option>
                     </select>
                 </div>
 
@@ -61,6 +72,45 @@
                         <option value="">-- Select --</option>
                         <option value="nvidia">NVIDIA</option>
                         <option value="amd">AMD</option>
+                        <option value="none">None</option>
+                    </select>
+                </div>
+
+                <!-- CPU Model Input -->
+                <div class="form-group">
+                    <label for="cpuModel">CPU Model</label>
+                    <input type="text" id="cpuModel" name="cpuModel" />
+                </div>
+
+                <!-- GPU Model Input -->
+                <div class="form-group">
+                    <label for="gpuModel">GPU Model</label>
+                    <input type="text" id="gpuModel" name="gpuModel" />
+                </div>
+
+                <!-- Storage Dropdown -->
+                <div class="form-group">
+                    <label for="storage">Storage</label>
+                    <select id="storage" name="storage" required>
+                        <option value="">-- Select --</option>
+                        <option value="256GB SSD">256GB SSD</option>
+                        <option value="512GB SSD">512GB SSD</option>
+                        <option value="1TB SSD">1TB SSD</option>
+                        <option value="2TB SSD">2TB SSD</option>
+                        <option value="1TB HDD">1TB HDD</option>
+                        <option value="2TB HDD">2TB HDD</option>
+                    </select>
+                </div>
+
+                <!-- RAM Dropdown -->
+                <div class="form-group">
+                    <label for="ram">RAM</label>
+                    <select id="ram" name="ram" required>
+                        <option value="">-- Select --</option>
+                        <option value="8GB">8GB</option>
+                        <option value="16GB">16GB</option>
+                        <option value="32GB">32GB</option>
+                        <option value="64GB">64GB</option>
                     </select>
                 </div>
 
@@ -78,5 +128,12 @@
             </div>
         </div>
         <script src="index.js"></script>
+        <script>
+            function updateBudgetValue(value) {
+                document.getElementById(
+                    "budgetValue"
+                ).textContent = `₹${value}`;
+            }
+        </script>
     </body>
 </html>
