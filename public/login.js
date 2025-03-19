@@ -20,19 +20,3 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     });
 });
-
-function handleCredentialResponse(response) {
-    const data = jwt_decode(response.credential);
-    console.log("ID: " + data.sub);
-    console.log("Full Name: " + data.name);
-    console.log("Given Name: " + data.given_name);
-    console.log("Family Name: " + data.family_name);
-    console.log("Image URL: " + data.picture);
-    console.log("Email: " + data.email);
-
-    // Store user data in localStorage
-    localStorage.setItem("userData", JSON.stringify(data));
-
-    // Redirect to index.html after successful login
-    window.location.href = "index.html";
-}

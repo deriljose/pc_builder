@@ -1,4 +1,3 @@
-/* General Styles */
 * {
     margin: 0;
     padding: 0;
@@ -15,63 +14,40 @@ body {
     color: #333;
 }
 
-.sidebar {
-    position: fixed;
-    left: 0;
-    top: 0;
-    width: 200px;
-    height: 100%;
-    background-color: #333;
-    padding-top: 20px;
-}
-
-.sidebar ul {
-    list-style-type: none;
-    padding: 0;
-}
-
-.sidebar ul li {
-    padding: 10px;
-    text-align: center;
-}
-
-.sidebar ul li a {
-    color: white;
-    text-decoration: none;
-    display: block;
-}
-
-.sidebar ul li a:hover {
-    background-color: #575757;
-}
-
 .container {
     background: #ffffff;
     border-radius: 12px;
     box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
     width: 90%;
-    max-width: 700px;
-    padding: 30px;
+    max-width: 400px; /* Reduced width */
+    padding: 15px; /* Reduced padding */
     text-align: center;
-    margin-left: 220px; /* Adjust for sidebar */
+    transition: 1s;
+    max-height: 90vh; /* Ensures form doesn't take full height */
+    overflow-y: auto; /* Scrolls inside if necessary */
+}
+
+.container:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 10px #008cff, 0 0 20px #008cff;
 }
 
 h1 {
     color: #007bff;
-    font-size: 24px;
-    margin-bottom: 10px;
+    font-size: 20px; /* Reduced font size */
+    margin-bottom: 5px; /* Less margin */
 }
 
 .description {
     color: #666;
-    font-size: 14px;
-    margin-bottom: 20px;
+    font-size: 12px; /* Smaller text */
+    margin-bottom: 10px; /* Less spacing */
 }
 
 form {
     display: flex;
     flex-direction: column;
-    gap: 15px;
+    gap: 8px; /* Reduced space between fields */
 }
 
 .form-group {
@@ -79,9 +55,9 @@ form {
 }
 
 label {
-    font-size: 14px;
+    font-size: 15px; /* Smaller labels */
     font-weight: bold;
-    margin-bottom: 5px;
+    margin-bottom: 5px; /* Less spacing */
     display: block;
 }
 
@@ -89,10 +65,10 @@ input,
 select,
 button {
     width: 100%;
-    padding: 10px;
+    padding: 10px; /* Reduced padding */
     border: 1px solid #ddd;
     border-radius: 6px;
-    font-size: 14px;
+    font-size: 12px; /* Smaller text */
     transition: all 0.3s ease;
 }
 
@@ -102,34 +78,36 @@ button {
     font-weight: bold;
     border: none;
     cursor: pointer;
-    transition: background-color 0.3s ease;
+    transition: 1s;
+    padding: 8px;
 }
 
 button:hover {
-    background-color: #0056b3;
+    box-shadow: 0 0 5px #008cff, 0 0 20px #008cff, 0 0 50px #008cff,
+        0 0 100px #008cff;
 }
 
 .submit-button {
-    margin-top: 10px;
+    margin-top: 8px; /* Less spacing */
 }
 
 .chatbot-section {
-    margin-top: 20px;
+    margin-top: 10px;
 }
 
 .chatbot-button {
     background-color: #28a745;
     color: white;
-    padding: 10px 20px;
+    padding: 8px 15px;
     border-radius: 6px;
-    font-size: 14px;
+    font-size: 12px;
     border: none;
     cursor: pointer;
-    transition: background-color 0.3s ease;
+    transition: 1s;
 }
 
 .chatbot-button:hover {
-    background-color: #218838;
+    box-shadow: 0 0 5px #00ff4c, 0 0 20px #00ff4c, 0 0 50px #00ff4c, 0 0 100px #00ff4c;
 }
 
 /* Slider Styles */
@@ -137,7 +115,7 @@ input[type="range"] {
     width: 100%;
     appearance: none;
     -webkit-appearance: none;
-    height: 5px;
+    height: 4px;
     background: #ddd;
     border-radius: 5px;
     outline: none;
@@ -147,8 +125,8 @@ input[type="range"] {
 input[type="range"]::-webkit-slider-thumb {
     -webkit-appearance: none;
     appearance: none;
-    width: 15px;
-    height: 15px;
+    width: 12px;
+    height: 12px;
     background: #007bff;
     border-radius: 50%;
     cursor: pointer;
@@ -160,8 +138,8 @@ input[type="range"]::-webkit-slider-thumb:hover {
 }
 
 input[type="range"]::-moz-range-thumb {
-    width: 15px;
-    height: 15px;
+    width: 12px;
+    height: 12px;
     background: #007bff;
     border-radius: 50%;
     cursor: pointer;
@@ -209,45 +187,74 @@ input[type="range"]::-moz-range-thumb:hover {
     text-overflow: ellipsis; /* Show "..." for overly long lines */
 }
 
-/* Card Styles */
-.card-container {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    gap: 20px;
+.sidebar {
+    position: fixed;
+    left: -220px; /* Initially hidden */
+    top: 0;
+    width: 200px;
+    height: 100vh;
+    background: rgba(30, 60, 114, 0.2); /* Transparent background */
+    backdrop-filter: blur(10px); /* Glass effect */
+  
+    box-shadow: 5px 0 15px rgba(0, 0, 0, 0.3); /* Soft shadow */
+    
+
+    color: white;
+    transition: left 0.5s ease-in-out;
+    border-radius: 10px;
+    padding-top: 20px;
+    display :flex;
+    justify-content: center;
 }
 
-.card {
-    background: #ffffff;
-    border-radius: 12px;
-    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
-    width: 30%;
-    padding: 20px;
-    text-align: left;
-    box-sizing: border-box;
+.sidebar ul {
+    list-style-type: none;
+    padding: 0;
 }
 
-.card h2 {
-    font-size: 18px;
-    color: #007bff;
-    margin-bottom: 10px;
+.sidebar ul li {
+    padding: 10px;
+    text-align: justify;
+    margin-bottom: 30px;
+    overflow: hidden;
+    transition: 1s;
 }
 
-.card p {
-    font-size: 14px;
-    color: #333;
-    margin-bottom: 10px;
+.sidebar ul li a {
+    color: white;
+    text-decoration: none;
+    transition:1s;
+    border-radius: 5px;
+    
 }
 
-.card pre {
-    white-space: pre-wrap;
-    word-wrap: break-word;
-    overflow-wrap: break-word;
-    max-width: 100%;
-    font-size: 14px;
-    line-height: 1.6;
+
+
+.sidebar ul li:hover {
+    background: rgba(0, 102, 255, 0.3); /* Light blue with 30% opacity */
+
+    transform: translateX(5px); /* Smooth effect instead of scale */
+    border-radius: 5px; /* Ensures no sharp edges */
+    overflow: hidden;
+
 }
 
+/* Hover effect without JS */
+.hover-area {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 20px; /* Small area to trigger sidebar */
+    height: 100vh;
+    background: transparent;
+    
+}
+
+.hover-area:hover + .sidebar,
+.sidebar:hover {
+    left: 0; /* Slide in */
+    transform: scale(1);
+}
 /* Mobile Compatibility */
 @media (max-width: 600px) {
     h1 {
@@ -261,9 +268,5 @@ input[type="range"]::-moz-range-thumb:hover {
     button {
         font-size: 12px;
         padding: 8px;
-    }
-
-    .card {
-        width: 100%;
     }
 }

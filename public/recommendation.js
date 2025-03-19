@@ -14,28 +14,5 @@ document.addEventListener("DOMContentLoaded", () => {
     data = data.replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>");
 
     const recommendationsDiv = document.getElementById("recommendations");
-
-    // Split the data into individual lists based on "Total Estimated Cost:"
-    const lists = data.split("**Total Estimated Cost:**");
-
-    lists.forEach((list, index) => {
-        if (list.trim()) {
-            const card = document.createElement("div");
-            card.className = "card";
-
-            // Add title for each PC build
-            const cardTitle = document.createElement("h2");
-            cardTitle.textContent = `PC Build ${index + 1}`;
-            card.appendChild(cardTitle);
-
-            // Add the list content
-            const listContent = document.createElement("pre");
-            listContent.innerHTML =
-                list.trim() + "<strong>Total Estimated Cost:</strong>";
-            card.appendChild(listContent);
-
-            // Append the created card to the recommendationsDiv
-            recommendationsDiv.appendChild(card);
-        }
-    });
+    recommendationsDiv.innerHTML = `<pre>${data}</pre>`;
 });

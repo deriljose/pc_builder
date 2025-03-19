@@ -1,6 +1,6 @@
 /* General Styles */
 body {
-    font-family: "Poppins", sans-serif;
+    font-family: 'Poppins', sans-serif;
     margin: 0;
     padding: 0;
     background: linear-gradient(90deg, #020024 0%, #1b3c87 40%, #00b4db 100%);
@@ -97,13 +97,9 @@ body {
 }
 
 .google-btn:hover {
-    background: #db4437;
+    background:red;
     color: white;
     box-shadow: 0 0 10px #db4437, 0 0 20px #db4437;
-}
-
-.g_id_signin {
-    margin-top: 20px;
 }
 
 /* Toggle Text */
