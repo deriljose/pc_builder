@@ -17,7 +17,10 @@ const DATABASE_NAME = "pcbuilder";
 
 // Connect to MongoDB
 let db;
-MongoClient.connect(MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true })
+MongoClient.connect(MONGO_URI, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+})
     .then((client) => {
         console.log("Connected to MongoDB");
         db = client.db(DATABASE_NAME); // Select the database
@@ -79,6 +82,9 @@ app.post("/submit", async (req, res) => {
     The Total Estimated Cost must be as close as possible to the budget ${budget}
     Never Recommend a PC Parts list which exceeds the budget of ${budget}
     The use case for the PC is ${useCase}
+
+    Generate 3 PC parts lists that meets all the requirements.
+    Each list should be separated by a line break.
     
     Only provide a small explanation at the end of the list, Don't write the word "Note:". Stick to this format strictly`;
 
@@ -125,9 +131,99 @@ app.post("/calculate-bottleneck", async (req, res) => {
     }
 });
 
-// Serve the recommendations HTML file
-app.get("/recommendations", (req, res) => {
-    res.sendFile(path.join(__dirname, "public", "recommendation.html"));
+// Handle benchmark calculation
+app.post("/calculate-benchmark", async (req, res) => {
+    const { cpu, gpu } = req.body;
+
+    const prompt = `Provide approximate benchmark scores for the following components:
+    CPU: ${cpu}
+    GPU: ${gpu}
+    
+    Format the response as:
+    CPU Benchmark
+    
+    <The scores>
+
+    GPU Benchmark
+
+    <The scores>
+    
+    Use the latest benchmark scores from reliable sources like PassMark, Cinebench, or 3DMark. Show atleast 2 scores for each component from different sources.
+    Do not include any other text or explanation and also do not bold any words.`;
+
+    try {
+        const result = await geminiModel.generateContent(prompt);
+        const responseText = result.response.text().trim();
+
+        // Handle empty response
+        if (!responseText) {
+            res.send(`
+                <script>
+                    document.getElementById("benchmarkResult").innerHTML = "No benchmark data available. Please try again.";
+                </script>
+            `);
+            return;
+        }
+
+        // Inject the responseText into the benchmarkResult element in benchmark.html
+        res.send(`${responseText.replace(/`/g, "\\`")}\
+        `);
+    } catch (error) {
+        console.error("Error fetching benchmark scores:", error);
+        res.status(500).send(`
+            <script>
+                document.getElementById("benchmarkResult").innerHTML = "Error fetching benchmark scores. Please try again later.";
+            </script>
+        `);
+    }
+});
+
+// Handle chat endpoint
+app.post("/chat", async (req, res) => {
+    const { message } = req.body;
+
+    if (!message) {
+        return res.status(400).send({
+            result: "error",
+            reason: "InvalidInput",
+            message: "Message is required",
+        });
+    }
+
+    try {
+        const prompt = `You are a helpful assistant. Respond to the following message: "${message}"`;
+
+        const result = await geminiModel.generateContent(prompt);
+        const responseText = result.response.text().trim();
+
+        res.status(200).send({ result: "success", response: responseText });
+    } catch (error) {
+        console.error("Error processing chat message:", error);
+        res.status(500).send({
+            result: "error",
+            reason: "ServerError",
+            message: "Error processing chat message",
+        });
+    }
+});
+
+// Handle user registration
+app.post("/register", async (req, res) => {
+    const { username, password } = req.body;
+
+    try {
+        // Hash the password
+        const hashedPassword = await bcrypt.hash(password, 10);
+
+        // Create a new user
+        const newUser = new User({ username, password: hashedPassword });
+        await newUser.save();
+
+        res.status(201).send("User registered successfully");
+    } catch (error) {
+        console.error("Error registering user:", error);
+        res.status(500).send("Error registering user");
+    }
 });
 
 // Example route to fetch user data
@@ -145,7 +241,9 @@ app.get("/users", async (req, res) => {
 app.post("/users", async (req, res) => {
     const { login_id, password } = req.body;
     try {
-        const result = await db.collection("users").insertOne({ login_id, password });
+        const result = await db
+            .collection("users")
+            .insertOne({ login_id, password });
         res.json({ message: "User inserted", userId: result.insertedId });
     } catch (error) {
         console.error("Error inserting user:", error);
@@ -159,9 +257,9 @@ app.post("/login", async (req, res) => {
 
     try {
         // Ensure the password is stored as a string in the database
-        const user = await db.collection("users").findOne({ 
-            login_id, 
-            password: password.toString() // Convert password to string for comparison
+        const user = await db.collection("users").findOne({
+            login_id,
+            password: password.toString(), // Convert password to string for comparison
         });
 
         if (user) {
@@ -180,6 +278,11 @@ app.post("/login", async (req, res) => {
 // Serve index.html for successful login redirection
 app.get("/index.html", (req, res) => {
     res.sendFile(path.join(__dirname, "public", "index.html"));
+});
+
+// Serve the recommendations HTML file
+app.get("/recommendations", (req, res) => {
+    res.sendFile(path.join(__dirname, "public", "recommendation.html"));
 });
 
 // Start the server

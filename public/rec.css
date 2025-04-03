@@ -14,143 +14,6 @@ body {
     color: #333;
 }
 
-.container {
-    background: #ffffff;
-    border-radius: 12px;
-    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
-    width: 90%;
-    max-width: 400px; /* Reduced width */
-    padding: 15px; /* Reduced padding */
-    text-align: center;
-    transition: 1s;
-    max-height: 90vh; /* Ensures form doesn't take full height */
-    overflow-y: auto; /* Scrolls inside if necessary */
-}
-
-.container:hover {
-    transform: scale(1.05);
-    box-shadow: 0 0 10px #008cff, 0 0 20px #008cff;
-}
-
-h1 {
-    color: #007bff;
-    font-size: 20px; /* Reduced font size */
-    margin-bottom: 5px; /* Less margin */
-}
-
-.description {
-    color: #666;
-    font-size: 12px; /* Smaller text */
-    margin-bottom: 10px; /* Less spacing */
-}
-
-form {
-    display: flex;
-    flex-direction: column;
-    gap: 8px; /* Reduced space between fields */
-}
-
-.form-group {
-    text-align: left;
-}
-
-label {
-    font-size: 15px; /* Smaller labels */
-    font-weight: bold;
-    margin-bottom: 5px; /* Less spacing */
-    display: block;
-}
-
-input,
-select,
-button {
-    width: 100%;
-    padding: 10px; /* Reduced padding */
-    border: 1px solid #ddd;
-    border-radius: 6px;
-    font-size: 12px; /* Smaller text */
-    transition: all 0.3s ease;
-}
-
-button {
-    background-color: #007bff;
-    color: white;
-    font-weight: bold;
-    border: none;
-    cursor: pointer;
-    transition: 1s;
-    padding: 8px;
-}
-
-button:hover {
-    box-shadow: 0 0 5px #008cff, 0 0 20px #008cff, 0 0 50px #008cff,
-        0 0 100px #008cff;
-}
-
-.submit-button {
-    margin-top: 8px; /* Less spacing */
-}
-
-.chatbot-section {
-    margin-top: 10px;
-}
-
-.chatbot-button {
-    background-color: #28a745;
-    color: white;
-    padding: 8px 15px;
-    border-radius: 6px;
-    font-size: 12px;
-    border: none;
-    cursor: pointer;
-    transition: 1s;
-}
-
-.chatbot-button:hover {
-    box-shadow: 0 0 5px #00ff4c, 0 0 20px #00ff4c, 0 0 50px #00ff4c, 0 0 100px #00ff4c;
-}
-
-/* Slider Styles */
-input[type="range"] {
-    width: 100%;
-    appearance: none;
-    -webkit-appearance: none;
-    height: 4px;
-    background: #ddd;
-    border-radius: 5px;
-    outline: none;
-    transition: background 0.3s ease;
-}
-
-input[type="range"]::-webkit-slider-thumb {
-    -webkit-appearance: none;
-    appearance: none;
-    width: 12px;
-    height: 12px;
-    background: #007bff;
-    border-radius: 50%;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-
-input[type="range"]::-webkit-slider-thumb:hover {
-    background-color: #0056b3;
-}
-
-input[type="range"]::-moz-range-thumb {
-    width: 12px;
-    height: 12px;
-    background: #007bff;
-    border-radius: 50%;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-
-input[type="range"]::-moz-range-thumb:hover {
-    background-color: #0056b3;
-}
-
-/* Make sure generated content has space and doesn't overflow */
 #recommendations {
     padding: 20px; /* Space around the text */
     margin: 20px 0; /* Vertical space between content */
@@ -279,4 +142,115 @@ input[type="range"]::-moz-range-thumb:hover {
     height: 100%;
     z-index: -1; /* Place particles behind other elements */
     background: linear-gradient(90deg, #020024 0%, #1b3c87 40%, #00b4db 100%); /* Fallback background */
+}
+
+.container {
+    width: 80%;
+    max-width: 800px;
+    margin: 50px auto;
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.9); /* Slight transparency */
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    text-align: center;
+}
+
+.recommendations-container {
+    margin-top: 20px;
+    padding: 20px;
+    background: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    overflow-y: auto;
+    max-height: 400px; /* Limit height with scroll */
+    font-family: "Arial", sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
+    color: #333;
+    text-align: left;
+    white-space: pre-wrap; /* Preserve formatting of raw content */
+    word-wrap: break-word; /* Break long words */
+    border: 1px solid #ddd; /* Add a subtle border */
+}
+
+.recommendations-container h2 {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 10px;
+    color: #0056b3;
+}
+
+.recommendations-container pre {
+    background: #f9f9f9;
+    padding: 15px;
+    border-radius: 5px;
+    overflow-x: auto; /* Allow horizontal scrolling for long lines */
+    font-family: "Courier New", Courier, monospace; /* Use monospace font for code-like appearance */
+    color: #444;
+    border: 1px solid #ccc;
+}
+
+.recommendations-container p {
+    margin-bottom: 15px;
+    color: #555;
+}
+
+.recommendations-container span {
+    display: block;
+    margin-bottom: 10px;
+    font-weight: bold;
+    color: #007bff;
+}
+
+.back-link {
+    display: inline-block;
+    margin-top: 20px;
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.back-link:hover {
+    background-color: #0056b3;
+}
+
+.button-group {
+    display: flex;
+    flex-direction: row; /* Align buttons in a row */
+    align-items: center;
+    margin: 20px 0; /* Space around the button group */
+    padding: 10px; /* Space inside the button group */
+    justify-content: center;
+    margin-top: 20px;
+    gap: 15px; /* Add spacing between buttons */
+    margin-right: auto;
+}
+
+.list-button {
+    padding: 12px 25px;
+    background: linear-gradient(90deg, #007bff, #0056b3);
+    color: white;
+    border: none;
+    border-radius: 30px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    transition: 1s;
+}
+
+.list-button:hover {
+   
+    transform: translateY(-3px); /* Slight lift effect */
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.3);
+    transition: 1s;
+}
+
+.list-button:active {
+    transform: translateY(1px); /* Pressed effect */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }

@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Benchmark Scores</title>
+        <link rel="stylesheet" href="styles.css" />
+    </head>
+    <body>
+        <div id="particles-js"></div>
+        <div class="hover-area"></div>
+        <div class="sidebar">
+            <ul>
+                <li><a href="index.html">Requirements</a></li>
+                <li><a href="recommendation.html">Recommendation</a></li>
+                <li><a href="bottleneck.html">Bottleneck Calculator</a></li>
+                <li><a href="#benchmark">Benchmark&Performance</a></li>
+                <li><a href="#game-building">Game Based Building</a></li>
+                <li><a href="chat.html">AI Assistant</a></li>
+            </ul>
+        </div>
+        <div class="container">
+            <h1>Benchmark Scores</h1>
+            <div id="benchmarkResult" class="recommendations-container">
+                Loading benchmark scores...
+            </div>
+            <a href="recommendation.html" class="back-link">Back to Recommendations</a>
+        </div>
+        <script>
+            document.addEventListener("DOMContentLoaded", async () => {
+                const storedData = localStorage.getItem("pcBuilderData");
+                if (storedData) {
+                    const data = storedData;
+                    const cpuMatch = data.match(/\*\*CPU\*\*:\s*(.*?)\s*-/);
+                    const gpuMatch = data.match(/\*\*GPU\*\*:\s*(.*?)\s*-/);
+
+                    if (cpuMatch && gpuMatch) {
+                        const cpu = cpuMatch[1];
+                        const gpu = gpuMatch[1];
+
+                        // Send CPU and GPU to the server for benchmark calculation
+                        try {
+                            const response = await fetch(
+                                "/calculate-benchmark",
+                                {
+                                    method: "POST",
+                                    headers: {
+                                        "Content-Type": "application/json",
+                                    },
+                                    body: JSON.stringify({ cpu, gpu }),
+                                }
+                            );
+
+                            if (!response.ok) {
+                                throw new Error(
+                                    "Failed to fetch benchmark scores."
+                                );
+                            }
+
+                            const result = await response.text();
+                            document.getElementById(
+                                "benchmarkResult"
+                            ).textContent = result;
+                        } catch (error) {
+                            console.error(
+                                "Error fetching benchmark scores:",
+                                error
+                            );
+                            document.getElementById(
+                                "benchmarkResult"
+                            ).textContent =
+                                "Error fetching benchmark scores. Please try again later.";
+                        }
+                    } else {
+                        document.getElementById("benchmarkResult").textContent =
+                            "Invalid data format. Please generate a PC part list first.";
+                    }
+                } else {
+                    document.getElementById("benchmarkResult").textContent =
+                        "No data available. Please generate a PC part list first.";
+                }
+            });
+        </script>
+        <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+        <script src="particles-config.js"></script>
+    </body>
+</html>

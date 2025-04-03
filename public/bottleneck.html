@@ -7,22 +7,27 @@
         <link rel="stylesheet" href="styles.css" />
     </head>
     <body>
+        <div id="particles-js"></div>
         <div class="hover-area"></div>
         <div class="sidebar">
             <ul>
-                <li><a href="#requirements">Requirements</a></li>
+                <li><a href="index.html">Requirements</a></li>
                 <li><a href="recommendation.html">Recommendation</a></li>
                 <li><a href="bottleneck.html">Bottleneck Calculator</a></li>
-                <li><a href="#benchmark">Benchmark&Performance</a></li>
+                <li><a href="benchmark.html">Benchmark&Performance</a></li>
                 <li><a href="#game-building">Game Based Building</a></li>
                 <li><a href="chat.html">AI Assistant</a></li>
             </ul>
         </div>
         <div class="container">
             <h1>Bottleneck Calculator</h1>
-            <div id="bottleneckResult"></div>
-            <a href="recommendation.html">Back to Recommendations</a>
+            <div id="bottleneckResult" class="recommendations-container">
+                <!-- Bottleneck results will be dynamically inserted here -->
+            </div>
+            <a href="recommendation.html" class="back-link">Back to Recommendations</a>
         </div>
         <script src="bottleneck.js"></script>
+        <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+        <script src="particles-config.js"></script>
     </body>
 </html>
