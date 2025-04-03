@@ -33,5 +33,32 @@
     </div>
     
     <script src="login.js"></script>
+    <script>
+        document.getElementById("auth-form").addEventListener("submit", async function(event) {
+            event.preventDefault();
+
+            const login_id = document.getElementById("username").value.trim();
+            const password = document.getElementById("password").value.trim();
+
+            try {
+                const response = await fetch("/login", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ login_id, password })
+                });
+
+                if (response.ok) {
+                    // Redirect to index.html on successful login
+                    window.location.href = "/index.html";
+                } else {
+                    const error = await response.json();
+                    alert(error.error); // Show an alert if login fails
+                }
+            } catch (error) {
+                console.error("Error during login:", error);
+                alert("An error occurred. Please try again.");
+            }
+        });
+    </script>
 </body>
 </html>
