@@ -16,7 +16,12 @@ body {
     width: 100%;
     height: 100%;
     z-index: -1; /* Place particles behind other elements */
-    background: linear-gradient(90deg, #020024 0%, #1b3c87 40%, #00b4db 100%); /* Fallback background */
+    background: linear-gradient(
+        90deg,
+        #020024 0%,
+        #1b3c87 40%,
+        #00b4db 100%
+    ); /* Fallback background */
 }
 
 .chat-container {
@@ -126,15 +131,14 @@ body {
     height: 100vh;
     background: rgba(30, 60, 114, 0.2); /* Transparent background */
     backdrop-filter: blur(10px); /* Glass effect */
-  
+
     box-shadow: 5px 0 15px rgba(0, 0, 0, 0.3); /* Soft shadow */
-    
 
     color: white;
     transition: left 0.5s ease-in-out;
     border-radius: 10px;
     padding-top: 20px;
-    display :flex;
+    display: flex;
     justify-content: center;
 }
 
@@ -154,12 +158,9 @@ body {
 .sidebar ul li a {
     color: white;
     text-decoration: none;
-    transition:1s;
+    transition: 1s;
     border-radius: 5px;
-    
 }
-
-
 
 .sidebar ul li:hover {
     background: rgba(0, 102, 255, 0.3); /* Light blue with 30% opacity */
@@ -167,7 +168,6 @@ body {
     transform: translateX(5px); /* Smooth effect instead of scale */
     border-radius: 5px; /* Ensures no sharp edges */
     overflow: hidden;
-
 }
 
 /* Hover effect without JS */
@@ -178,7 +178,6 @@ body {
     width: 20px; /* Small area to trigger sidebar */
     height: 100vh;
     background: transparent;
-    
 }
 
 .hover-area:hover + .sidebar,

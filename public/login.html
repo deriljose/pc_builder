@@ -23,7 +23,11 @@
                     <button type="submit" class="cta-btn">Login</button>
 
                     <div class="divider">OR</div>
-                    <button type="button" class="google-btn">
+                    <button
+                        type="button"
+                        class="google-btn"
+                        onclick="signInWithGoogle()"
+                    >
                         Sign in with Google
                     </button>
 
@@ -57,8 +61,8 @@
                         });
 
                         if (response.ok) {
-                            // Redirect to index.html on successful login
-                            window.location.href = "/index.html";
+                            // Redirect to requirement.html on successful login
+                            window.location.href = "/requirement.html";
                         } else {
                             const error = await response.json();
                             alert(error.error); // Show an alert if login fails
@@ -68,6 +72,10 @@
                         alert("An error occurred. Please try again.");
                     }
                 });
+
+            function signInWithGoogle() {
+                window.location.href = "/auth/google"; // Redirect to Google OAuth endpoint
+            }
         </script>
     </body>
 </html>

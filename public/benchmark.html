@@ -11,11 +11,11 @@
         <div class="hover-area"></div>
         <div class="sidebar">
             <ul>
-                <li><a href="index.html">Requirements</a></li>
+                <li><a href="requirement.html">Requirements</a></li>
                 <li><a href="recommendation.html">Recommendation</a></li>
                 <li><a href="bottleneck.html">Bottleneck Calculator</a></li>
-                <li><a href="#benchmark">Benchmark&Performance</a></li>
-                <li><a href="#game-building">Game Based Building</a></li>
+                <li><a href="benchmark.html">Benchmark&Performance</a></li>
+                <li><a href="game.html">Game Based Building</a></li>
                 <li><a href="chat.html">AI Assistant</a></li>
             </ul>
         </div>
@@ -24,57 +24,72 @@
             <div id="benchmarkResult" class="recommendations-container">
                 Loading benchmark scores...
             </div>
-            <a href="recommendation.html" class="back-link">Back to Recommendations</a>
+            <a href="recommendation.html" class="back-link"
+                >Back to Recommendations</a
+            >
         </div>
         <script>
             document.addEventListener("DOMContentLoaded", async () => {
                 const storedData = localStorage.getItem("pcBuilderData");
                 if (storedData) {
-                    const data = storedData;
-                    const cpuMatch = data.match(/\*\*CPU\*\*:\s*(.*?)\s*-/);
-                    const gpuMatch = data.match(/\*\*GPU\*\*:\s*(.*?)\s*-/);
+                    const lists = storedData.split(/(?=List \d:)/); // Split into individual lists
+                    const benchmarkResults = [];
 
-                    if (cpuMatch && gpuMatch) {
-                        const cpu = cpuMatch[1];
-                        const gpu = gpuMatch[1];
+                    for (const list of lists) {
+                        const cpuMatch = list.match(/\*\*CPU\*\*:\s*(.*?)\s*-/);
+                        const gpuMatch = list.match(/\*\*GPU\*\*:\s*(.*?)\s*-/);
 
-                        // Send CPU and GPU to the server for benchmark calculation
-                        try {
-                            const response = await fetch(
-                                "/calculate-benchmark",
-                                {
-                                    method: "POST",
-                                    headers: {
-                                        "Content-Type": "application/json",
-                                    },
-                                    body: JSON.stringify({ cpu, gpu }),
+                        if (cpuMatch && gpuMatch) {
+                            const cpu = cpuMatch[1];
+                            const gpu = gpuMatch[1];
+
+                            try {
+                                const response = await fetch(
+                                    "/calculate-benchmark",
+                                    {
+                                        method: "POST",
+                                        headers: {
+                                            "Content-Type": "application/json",
+                                        },
+                                        body: JSON.stringify({ cpu, gpu }),
+                                    }
+                                );
+
+                                if (!response.ok) {
+                                    throw new Error(
+                                        "Failed to fetch benchmark data."
+                                    );
                                 }
-                            );
 
-                            if (!response.ok) {
-                                throw new Error(
-                                    "Failed to fetch benchmark scores."
+                                const result = await response.text();
+                                benchmarkResults.push(
+                                    `<h3>${list.split("\n")[0]}</h3>
+                                    <p><strong>CPU:</strong> ${cpu}</p>
+                                    <p><strong>GPU:</strong> ${gpu}</p>
+                                    <pre>${result}</pre>`
+                                );
+                            } catch (error) {
+                                console.error(
+                                    "Error fetching benchmark data:",
+                                    error
+                                );
+                                benchmarkResults.push(
+                                    `<h3>${list.split("\n")[0]}</h3>
+                                    <p><strong>CPU:</strong> ${cpu}</p>
+                                    <p><strong>GPU:</strong> ${gpu}</p>
+                                    <p>Error fetching benchmark data.</p>`
                                 );
                             }
-
-                            const result = await response.text();
-                            document.getElementById(
-                                "benchmarkResult"
-                            ).textContent = result;
-                        } catch (error) {
-                            console.error(
-                                "Error fetching benchmark scores:",
-                                error
+                        } else {
+                            benchmarkResults.push(
+                                `<h3>${list.split("\n")[0]}</h3>
+                                <p>Invalid data format.</p>`
                             );
-                            document.getElementById(
-                                "benchmarkResult"
-                            ).textContent =
-                                "Error fetching benchmark scores. Please try again later.";
                         }
-                    } else {
-                        document.getElementById("benchmarkResult").textContent =
-                            "Invalid data format. Please generate a PC part list first.";
                     }
+
+                    document.getElementById("benchmarkResult").innerHTML =
+                        benchmarkResults.join("");
                 } else {
                     document.getElementById("benchmarkResult").textContent =
                         "No data available. Please generate a PC part list first.";

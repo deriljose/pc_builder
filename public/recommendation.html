@@ -32,9 +32,8 @@
         <div id="particles-js"></div>
         <div class="hover-area"></div>
         <div class="sidebar">
-       
             <ul>
-                <li><a href="index.html">Requirements</a></li>
+                <li><a href="requirement.html">Requirements</a></li>
                 <li><a href="recommendation.html">Recommendation</a></li>
                 <li><a href="bottleneck.html">Bottleneck Calculator</a></li>
                 <li><a href="benchmark.html">Benchmark&Performance</a></li>
@@ -47,7 +46,7 @@
             <div id="recommendations" class="recommendations-container">
                 <!-- Raw content will be dynamically inserted here -->
             </div>
-            <a href="index.html" class="back-link">Back to Form</a>
+            <a href="requirement.html" class="back-link">Back to Form</a>
         </div>
         <div class="button-group">
             <button class="list-button" onclick="selectList(1)">List 1</button>
@@ -56,31 +55,16 @@
         </div>
         <script>
             document.addEventListener("DOMContentLoaded", () => {
-                const storedData = localStorage.getItem("pcBuilderData");
-                if (storedData) {
-                    const lists = storedData.split(/(?=List \d:)/); // Split using "List 1:", "List 2:", etc.
-                    if (lists.length >= 3) {
-                        document.getElementById("recommendations").innerHTML = `
-                            <div class="list-container">
-                                <pre>${lists[0]}</pre>
-                            </div>
-                            <div class="list-container">
-                                <h2>PC List 1</h2>
-                                <pre>${lists[1]}</pre>
-                            </div>
-                            <div class="list-container">
-                                <h2>PC List 2</h2>
-                                <pre>${lists[2]}</pre>
-                            </div>
-                            <div class="list-container">
-                                <h2>PC List 3</h2>
-                                <pre>${lists[3]}</pre>
-                            </div>
-                        `;
-                    } else {
-                        document.getElementById("recommendations").textContent =
-                            "Error: Could not load all PC lists.";
-                    }
+                const selectedList = localStorage.getItem("pcBuilderData");
+
+                if (selectedList) {
+                    // Display the selected list if it exists in localStorage
+                    document.getElementById("recommendations").innerHTML = `
+                        <div class="list-container">
+                            <h2>Selected PC List</h2>
+                            <pre>${selectedList}</pre>
+                        </div>
+                    `;
                 } else {
                     document.getElementById("recommendations").textContent =
                         "No data available. Please generate a PC part list first.";
