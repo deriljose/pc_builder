@@ -1,0 +1,136 @@
+/* General Styles */
+body {
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    padding: 0;
+    background: linear-gradient(90deg, #020024 0%, #1b3c87 40%, #00b4db 100%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+/* Auth Container */
+.auth-container {
+    text-align: center;
+}
+
+.auth-box {
+    background: #335f8f;
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(10px);
+    text-align: center;
+    color: white;
+    width: 320px;
+    transition: 0.3s ease-in-out;
+}
+
+.auth-box:hover {
+    transform: scale(1.05);
+}
+
+/* Input Group */
+.input-group {
+    position: relative;
+    margin: 20px 0;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 10px;
+    background: transparent;
+    border: none;
+    border-bottom: 2px solid white;
+    outline: none;
+    color: white;
+    font-size: 16px;
+}
+
+.input-group label {
+    position: absolute;
+    left: 0;
+    bottom: 10px;
+    font-size: 16px;
+    color: rgba(255, 255, 255, 0.6);
+    transition: 0.3s ease;
+}
+
+.input-group input:focus + label,
+.input-group input:valid + label {
+    transform: translateY(-20px);
+    font-size: 14px;
+    color: #00b4db;
+}
+
+/* CTA Button */
+.cta-btn {
+    width: 100%;
+    padding: 12px;
+    background: white;
+    border: none;
+    color: #335f8f;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: 0.3s;
+}
+
+.cta-btn:hover {
+    background: #008cff;
+    color: white;
+    box-shadow: 0 0 10px #008cff, 0 0 20px #008cff;
+}
+
+/* Google Button */
+.google-btn {
+    width: 100%;
+    padding: 12px;
+    background: #ffffff;
+    border: none;
+    color: #333;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: 0.3s;
+}
+
+.google-btn:hover {
+    background:red;
+    color: white;
+    box-shadow: 0 0 10px #db4437, 0 0 20px #db4437;
+}
+
+/* Toggle Text */
+.toggle-text {
+    margin-top: 10px;
+    font-size: 14px;
+}
+
+.toggle-text span {
+    color: #00b4db;
+    cursor: pointer;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+.toggle-text span:hover {
+    text-decoration: underline;
+}
+
+/* Divider */
+.divider {
+    margin: 15px 0;
+    color: white;
+    font-weight: bold;
+}
+#particles-js {
+    position: fixed; /* Fixed position to cover the entire viewport */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1; /* Place particles behind other elements */
+    background: linear-gradient(90deg, #020024 0%, #1b3c87 40%, #00b4db 100%); /* Fallback background */
+}

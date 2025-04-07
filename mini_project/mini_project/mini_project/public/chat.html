@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Chat</title>
+        <link rel="stylesheet" href="chatstyles.css" />
+    </head>
+    <body>
+        <div class="hover-area"></div>
+        <div class="sidebar">
+            <ul>
+                <li><a href="requirement.html">Requirements</a></li>
+                <li><a href="recommendation.html">Recommendation</a></li>
+                <li><a href="bottleneck.html">Bottleneck Calculator</a></li>
+                <li><a href="benchmark.html">Benchmark&Performance</a></li>
+                <li><a href="game.html">Game Based Building</a></li>
+                <li><a href="chat.html">AI Assistant</a></li>
+            </ul>
+        </div>
+        <div id="particles-js"></div>
+        <div class="chat-container">
+            <div class="chat-header">
+                <h1>Chat Assistant</h1>
+            </div>
+            <div id="chat-box" class="chat-box"></div>
+            <div class="chat-input-container">
+                <form id="chat-form">
+                    <input
+                        type="text"
+                        id="chat-input"
+                        placeholder="Type your message..."
+                        required
+                    />
+                    <button id="send-btn" type="submit">Send</button>
+                </form>
+            </div>
+        </div>
+        <script>
+            document
+                .getElementById("chat-form")
+                .addEventListener("submit", async (e) => {
+                    e.preventDefault();
+
+                    const input = document.getElementById("chat-input");
+                    const message = input.value.trim();
+                    if (!message) return;
+
+                    const chatBox = document.getElementById("chat-box");
+                    chatBox.innerHTML += `<div class="chat-message user-message">${message}</div>`;
+
+                    try {
+                        const response = await fetch("/chat", {
+                            method: "POST",
+                            headers: {
+                                "Content-Type": "application/json",
+                            },
+                            body: JSON.stringify({ message }),
+                        });
+
+                        const data = await response.json();
+                        if (data.result === "success") {
+                            chatBox.innerHTML += `<div class="chat-message bot-message">${data.response}</div>`;
+                        } else {
+                            chatBox.innerHTML += `<div class="chat-message error-message">Error: ${data.message}</div>`;
+                        }
+                    } catch (error) {
+                        console.error("Error sending message:", error);
+                        chatBox.innerHTML += `<div class="chat-message error-message">Error sending message. Please try again later.</div>`;
+                    }
+
+                    input.value = "";
+                    chatBox.scrollTop = chatBox.scrollHeight; // Auto-scroll to the latest message
+                });
+        </script>
+        <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+        <script src="particles-config.js"></script>
+    </body>
+</html>

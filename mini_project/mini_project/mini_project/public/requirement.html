@@ -1,0 +1,147 @@
+<!-- public/index.html -->
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Modern PC Builder</title>
+        <link rel="stylesheet" href="styles.css" />
+    </head>
+    <body>
+        <div id="particles-js"></div>
+        <div class="hover-area"></div>
+        <div class="sidebar">
+            <ul>
+                <li><a href="requirement.html">Requirements</a></li>
+                <li><a href="recommendation.html">Recommendation</a></li>
+                <li><a href="bottleneck.html">Bottleneck Calculator</a></li>
+                <li><a href="benchmark.html">Benchmark&Performance</a></li>
+                <li><a href="game.html">Game Based Building</a></li>
+                <li><a href="chat.html">AI Assistant</a></li>
+            </ul>
+        </div>
+        <div class="container">
+            <h1>Build Your Custom PC</h1>
+            <p class="description">
+                Enter your preferences to get the best PC recommendations!
+            </p>
+            <form id="pcBuilderForm" method="POST" action="/submit">
+                <!-- Budget Input (Slider) -->
+                <div class="form-group">
+                    <label for="budget">Budget:</label>
+                    <input
+                        type="range"
+                        id="budget"
+                        name="budget"
+                        min="20000"
+                        max="350000"
+                        step="100"
+                        value="1000"
+                        oninput="updateBudgetValue(this.value)"
+                    />
+                    <span id="budgetValue">₹20000</span>
+                </div>
+
+                <!-- Use Case Selection -->
+                <div class="form-group">
+                    <label for="useCase">Primary Use Case:</label>
+                    <select id="useCase" name="useCase" required>
+                        <option value="">-- Select --</option>
+                        <option value="gaming">Gaming</option>
+                        <option value="office">Office Work</option>
+                        <option value="contentCreation">
+                            Content Creation
+                        </option>
+                        <option value="general">General Use</option>
+                    </select>
+                </div>
+
+                <!-- CPU Brand Preference -->
+                <div class="form-group">
+                    <label for="cpuBrand">Preferred CPU Brand:</label>
+                    <select id="cpuBrand" name="cpuBrand" required>
+                        <option value="">-- Select --</option>
+                        <option value="intel">Intel</option>
+                        <option value="amd">AMD</option>
+                        <option value="none">None</option>
+                    </select>
+                </div>
+
+                <!-- GPU Brand Preference -->
+                <div class="form-group">
+                    <label for="gpuBrand">Preferred GPU Brand:</label>
+                    <select id="gpuBrand" name="gpuBrand" required>
+                        <option value="">-- Select --</option>
+                        <option value="nvidia">NVIDIA</option>
+                        <option value="amd">AMD</option>
+                        <option value="none">None</option>
+                    </select>
+                </div>
+
+                <!-- CPU Model Input -->
+                <div class="form-group">
+                    <label for="cpuModel">CPU Model</label>
+                    <input type="text" id="cpuModel" name="cpuModel" />
+                </div>
+
+                <!-- GPU Model Input -->
+                <div class="form-group">
+                    <label for="gpuModel">GPU Model</label>
+                    <input type="text" id="gpuModel" name="gpuModel" />
+                </div>
+
+                <!-- Storage Dropdown -->
+                <div class="form-group">
+                    <label for="storage">Storage</label>
+                    <select id="storage" name="storage" required>
+                        <option value="">-- Select --</option>
+                        <option value="256GB SSD">256GB SSD</option>
+                        <option value="512GB SSD">512GB SSD</option>
+                        <option value="1TB SSD">1TB SSD</option>
+                        <option value="2TB SSD">2TB SSD</option>
+                        <option value="1TB HDD">1TB HDD</option>
+                        <option value="2TB HDD">2TB HDD</option>
+                    </select>
+                </div>
+
+                <!-- RAM Dropdown -->
+                <div class="form-group">
+                    <label for="ram">RAM</label>
+                    <select id="ram" name="ram" required>
+                        <option value="">-- Select --</option>
+                        <option value="8GB">8GB</option>
+                        <option value="16GB">16GB</option>
+                        <option value="32GB">32GB</option>
+                        <option value="64GB">64GB</option>
+                    </select>
+                </div>
+
+                <button type="submit" class="submit-button">
+                    Get Recommendations
+                </button>
+            </form>
+
+            <!-- Chatbot Section -->
+            <div class="chatbot-section">
+                <p>Need help? Chat with our assistant!</p>
+                <button
+                    class="chatbot-button"
+                    onclick="window.location.href='chat.html'"
+                >
+                    Chat Now
+                </button>
+            </div>
+        </div>
+        <script src="index.js"></script>
+        <script>
+            function updateBudgetValue(value) {
+                document.getElementById(
+                    "budgetValue"
+                ).textContent = `₹${value}`;
+            }
+        </script>
+
+        <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+        <script src="particles-config.js"></script>
+    </body>
+</html>

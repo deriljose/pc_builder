@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>PC Recommendations</title>
+        <link rel="stylesheet" href="rec.css" />
+        <style>
+            .button-group {
+                display: flex;
+                justify-content: center;
+                margin-top: 20px;
+            }
+
+            .button-group button {
+                margin: 0 10px;
+                padding: 10px 20px;
+                background-color: #007bff;
+                color: white;
+                border: none;
+                border-radius: 5px;
+                cursor: pointer;
+                transition: background-color 0.3s ease;
+            }
+
+            .button-group button:hover {
+                background-color: #0056b3;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="particles-js"></div>
+        <div class="hover-area"></div>
+        <div class="sidebar">
+            <ul>
+                <li><a href="requirement.html">Requirements</a></li>
+                <li><a href="recommendation.html">Recommendation</a></li>
+                <li><a href="bottleneck.html">Bottleneck Calculator</a></li>
+                <li><a href="benchmark.html">Benchmark&Performance</a></li>
+                <li><a href="#game-building">Game Based Building</a></li>
+                <li><a href="chat.html">AI Assistant</a></li>
+            </ul>
+        </div>
+        <div class="container">
+            <h1>Your PC Recommendations</h1>
+            <div id="recommendations" class="recommendations-container">
+                <!-- Raw content will be dynamically inserted here -->
+            </div>
+            <a href="requirement.html" class="back-link">Back to Form</a>
+        </div>
+        <div class="button-group">
+            <button class="list-button" onclick="selectList(1)">List 1</button>
+            <button class="list-button" onclick="selectList(2)">List 2</button>
+            <button class="list-button" onclick="selectList(3)">List 3</button>
+        </div>
+        <script>
+            document.addEventListener("DOMContentLoaded", () => {
+                const selectedList = localStorage.getItem("pcBuilderData");
+
+                if (selectedList) {
+                    // Display the selected list if it exists in localStorage
+                    document.getElementById("recommendations").innerHTML = `
+                        <div class="list-container">
+                            <h2>Selected PC List</h2>
+                            <pre>${selectedList}</pre>
+                        </div>
+                    `;
+                } else {
+                    document.getElementById("recommendations").textContent =
+                        "No data available. Please generate a PC part list first.";
+                }
+            });
+
+            async function selectList(index) {
+                const storedData = localStorage.getItem("pcBuilderData");
+                if (storedData) {
+                    const lists = storedData.split(/(?=List \d:)/); // Split using "List 1:", "List 2:", etc.
+                    if (lists[index]) {
+                        // Display only the selected list
+                        document.getElementById("recommendations").innerHTML = `
+                            <div class="list-container">
+                                <h2>Selected PC List</h2>
+                                <pre>${lists[index]}</pre>
+                            </div>
+                        `;
+                        // Store the selected list in localStorage
+                        localStorage.setItem("pcBuilderData", lists[index]);
+                    } else {
+                        alert("Invalid list selection.");
+                    }
+                } else {
+                    alert("No data available to select a list.");
+                }
+            }
+        </script>
+        <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+        <script src="particles-config.js"></script>
+    </body>
+</html>

@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Gaming PC Recommender</title>
+        <link rel="stylesheet" href="game.css" />
+    </head>
+    <body>
+        <div id="particles-js"></div>
+        <div class="hover-area"></div>
+        <div class="sidebar">
+            <ul>
+                <li><a href="index.html">Requirements</a></li>
+                <li><a href="recommendation.html">Recommendation</a></li>
+                <li><a href="bottleneck.html">Bottleneck Calculator</a></li>
+                <li><a href="benchmark.html">Benchmark&Performance</a></li>
+                <li><a href="game.html">Game Based Building</a></li>
+                <li><a href="chat.html">AI Assistant</a></li>
+            </ul>
+        </div>
+        <div class="container">
+            <h1>Select Games for PC Recommendation</h1>
+            <div class="games-grid">
+                <div
+                    class="game-card"
+                    onclick="toggleGameSelection(this, 'Elden Ring')"
+                >
+                    <img
+                        src="game_images/eldenring.jpeg.jpg"
+                        alt="Elden Ring"
+                    />
+                    <span>Elden Ring</span>
+                </div>
+                <div
+                    class="game-card"
+                    onclick="toggleGameSelection(this, 'Cyberpunk 2077')"
+                >
+                    <img src="game_images/cyberpunk.png" alt="Cyberpunk 2077" />
+                    <span>Cyberpunk 2077</span>
+                </div>
+                <div
+                    class="game-card"
+                    onclick="toggleGameSelection(this, 'Red Dead Redemption 2')"
+                >
+                    <img
+                        src="game_images/redemption.jpeg.jpg"
+                        alt="Red Dead Redemption 2"
+                    />
+                    <span>Red Dead Redemption 2</span>
+                </div>
+                <div
+                    class="game-card"
+                    onclick="toggleGameSelection(this, 'The Witcher 3')"
+                >
+                    <img
+                        src="game_images/the witcher.jpeg.jpg"
+                        alt="The Witcher 3"
+                    />
+                    <span>The Witcher 3</span>
+                </div>
+                <div
+                    class="game-card"
+                    onclick="toggleGameSelection(this, 'GTA V')"
+                >
+                    <img src="game_images/gta.jpg" alt="GTA V" />
+                    <span>GTA V</span>
+                </div>
+                <div
+                    class="game-card"
+                    onclick="toggleGameSelection(this, 'Apex Legends')"
+                >
+                    <img src="game_images/apexlegends.jpg" alt="Apex Legends" />
+                    <span>Apex Legends</span>
+                </div>
+                <div
+                    class="game-card"
+                    onclick="toggleGameSelection(this, 'Call of Duty: Warzone')"
+                >
+                    <img
+                        src="game_images/call of duty.jpeg.jpg"
+                        alt="Call of Duty: Warzone"
+                    />
+                    <span>Call of Duty: Warzone</span>
+                </div>
+                <div
+                    class="game-card"
+                    onclick="toggleGameSelection(this, 'Valorant')"
+                >
+                    <img src="game_images/valorant.webp" alt="Valorant" />
+                    <span>Valorant</span>
+                </div>
+                <div
+                    class="game-card"
+                    onclick="toggleGameSelection(this, 'Fortnite')"
+                >
+                    <img src="game_images/fortnite.jpg" alt="Fortnite" />
+                    <span>Fortnite</span>
+                </div>
+                <div
+                    class="game-card"
+                    onclick="toggleGameSelection(this, 'Minecraft')"
+                >
+                    <img src="game_images/minecraft.jpeg.jpg" alt="Minecraft" />
+                    <span>Minecraft</span>
+                </div>
+            </div>
+            <button onclick="getRecommendations()">Select Games</button>
+        </div>
+
+        <script>
+            let selectedGames = [];
+
+            function toggleGameSelection(card, gameName) {
+                const index = selectedGames.indexOf(gameName);
+                if (index > -1) {
+                    selectedGames.splice(index, 1);
+                    card.classList.remove("selected");
+                } else {
+                    selectedGames.push(gameName);
+                    card.classList.add("selected");
+                }
+                console.log("Selected games:", selectedGames);
+            }
+
+            async function getRecommendations() {
+                if (selectedGames.length === 0) {
+                    alert("Please select at least one game.");
+                    return;
+                }
+
+                try {
+                    const response = await fetch("/game-build", {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json",
+                        },
+                        body: JSON.stringify({ selectedGames }),
+                    });
+
+                    if (!response.ok) {
+                        throw new Error("Failed to process game build.");
+                    }
+
+                    const data = await response.json();
+
+                    // Store the Gemini output in localStorage and redirect
+                    localStorage.setItem("gameBuildResult", data.geminiOutput);
+                    window.location.href = "/game-build-result.html";
+                } catch (error) {
+                    console.error("Error submitting game build:", error);
+                    alert("An error occurred. Please try again.");
+                }
+            }
+        </script>
+        <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+        <script src="particles-config.js"></script>
+    </body>
+</html>

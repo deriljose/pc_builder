@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Game Build Result</title>
+        <link rel="stylesheet" href="styles.css" />
+    </head>
+    <body>
+        <div class="sidebar">
+            <ul>
+                <li><a href="index.html">Requirements</a></li>
+                <li><a href="recommendation.html">Recommendation</a></li>
+                <li><a href="bottleneck.html">Bottleneck Calculator</a></li>
+                <li><a href="benchmark.html">Benchmark&Performance</a></li>
+                <li><a href="game.html">Game Based Building</a></li>
+                <li><a href="chat.html">AI Assistant</a></li>
+            </ul>
+        </div>
+        <div id="particles-js"></div>
+        <div class="container">
+            <h1>Most Powerful Minimum Requirements</h1>
+            <div id="gameBuildResult" class="recommendations-container">
+                Loading results...
+            </div>
+            <a href="game.html" class="back-link">Back to Home</a>
+        </div>
+        <script>
+            document.addEventListener("DOMContentLoaded", () => {
+                const result = localStorage.getItem("gameBuildResult");
+                if (result) {
+                    document.getElementById(
+                        "gameBuildResult"
+                    ).innerHTML = `<h2>Gemini Output</h2><pre>${result}</pre>`;
+                } else {
+                    document.getElementById("gameBuildResult").textContent =
+                        "No results available. Please try again.";
+                }
+            });
+        </script>
+        <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+        <script src="particles-config.js"></script>
+    </body>
+</html>
