@@ -12,18 +12,18 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 
 // MongoDB connection URI and database name
-const MONGO_URI = "mongodb://localhost:27017"; // Replace with your MongoDB URI if hosted elsewhere
+const MONGO_URI = `mongodb+srv://deril:${process.env.DB_PASSWORD}@pcbuilder.7lis3so.mongodb.net/?retryWrites=true&w=majority&appName=pcbuilder`; // Use password from .env
 const DATABASE_NAME = "pcbuilder";
 
 // Connect to MongoDB
 let db;
-MongoClient.connect(MONGO_URI)
+MongoClient.connect(MONGO_URI) // Removed deprecated options
     .then((client) => {
-        console.log("Connected to MongoDB");
+        console.log("Connected to MongoDB Atlas");
         db = client.db(DATABASE_NAME); // Select the database
     })
     .catch((error) => {
-        console.error("Error connecting to MongoDB:", error);
+        console.error("Error connecting to MongoDB Atlas:", error);
     });
 
 // Middleware
