@@ -50,6 +50,6 @@ This project was done as part of our S6 Mini Project.
 Meet the developers behind PC Builder:
 
 Darsan | [GitHub](https://github.com/darshan-jpeg)  
-Daya | [GitHub]((https://github.com/dayawinny))  
+Daya | [GitHub](https://github.com/dayawinny)  
 Deril | [GitHub](https://github.com/deriljose)  
 Meenakshy | [GitHub](https://github.com/mks2003)  
